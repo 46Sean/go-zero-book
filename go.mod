@@ -1,4 +1,4 @@
-module book
+module go-zero-book
 
 go 1.15
 
