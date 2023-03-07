@@ -10,6 +10,7 @@ import (
 	"go-zero-book/service/user/api/internal/types"
 	"go-zero-book/service/user/model"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -25,6 +26,16 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
+}
+
+func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (string, error) {
+	claims := make(jwt.MapClaims)
+	claims["exp"] = iat + seconds
+	claims["iat"] = iat
+	claims["userId"] = userId
+	token := jwt.New(jwt.SigningMethodHS256)
+	token.Claims = claims
+	return token.SignedString([]byte(secretKey))
 }
 
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginReply, err error) {
