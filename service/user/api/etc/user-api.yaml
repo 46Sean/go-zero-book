@@ -7,3 +7,6 @@ CacheRedis:
   - Host: localhost:16379
     Pass: Aa123456
     Type: node
+Auth:
+  AccessSecret: eyJhbGciOiJIUzUxMiJ9
+  AccessExpire: 3600
