@@ -4,3 +4,7 @@ Port: 8889
 Auth:
   AccessSecret: eyJhbGciOiJIUzUxMiJ9
   AccessExpire: 3600
+Log:
+  Mode: file
+  Path: logs/api/search
+  Level: info
