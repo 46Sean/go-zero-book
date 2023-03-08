@@ -10,8 +10,11 @@ type (
 	}
 )
 
+// 声明了jwt和middleware，被装饰的服务写法如下
 @server(
 	jwt: Auth
+	middleware: Example  // 路由中间件声明
+	
 )
 service search-api{
 	@handler search
