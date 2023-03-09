@@ -2,7 +2,7 @@ package logic
 
 import (
 	"context"
-	"errors"
+	"go-zero-book/common/errorx"
 	"strings"
 	"time"
 
@@ -41,20 +41,20 @@ func (l *LoginLogic) getJwtToken(secretKey string, iat, seconds, userId int64) (
 func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginReply, err error) {
 	// todo: add your logic here and delete this line
 	if len(strings.TrimSpace(req.Username)) == 0 || len(strings.TrimSpace(req.Password)) == 0 {
-		return nil, errors.New("参数错误")
+		return nil, errorx.NewDefaultCodeError("参数错误")
 	}
 
 	userInfo, err := l.svcCtx.UserModel.FindOneByNumber(l.ctx, req.Username)
 	switch err {
 	case nil:
 	case model.ErrNotFound:
-		return nil, errors.New("用户名不存在")
+		return nil, errorx.NewDefaultCodeError("用户名不存在")
 	default:
 		return nil, err
 	}
 
 	if userInfo.Password != req.Password {
-		return nil, errors.New("用户密码不正确")
+		return nil, errorx.NewDefaultCodeError("用户密码不正确")
 	}
 
 	// ---start---
