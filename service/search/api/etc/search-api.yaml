@@ -8,3 +8,8 @@ Log:
   Mode: file
   Path: logs/api/search
   Level: info
+UserRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
